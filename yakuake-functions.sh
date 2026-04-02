@@ -14,3 +14,12 @@ detect_qdbus_command() {
         exit 1
     fi
 }
+
+# Check if fzf is available
+# Exits with error if fzf is not found
+check_fzf() {
+    if ! command -v fzf >/dev/null 2>&1; then
+        echo "Error: fzf not found. Please install fzf (fuzzy finder)."
+        exit 1
+    fi
+}
