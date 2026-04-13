@@ -12,8 +12,12 @@ R=$(dirname "$script")
 # Determine which qdbus command to use
 detect_qdbus_command
 
-# Get the new title from command line argument or use current folder name
-NEW_TITLE=${1:-$(basename "$(pwd)")}
+if [ "${1:-}" = "+" ] ; then
+    shift
+    NEW_TITLE="$(basename "$(pwd)") ${@}"
+else
+    NEW_TITLE=${@:-$(basename "$(pwd)")}
+fi
 
 # Get the active session ID
 SESSION_ID=$($QDBUS_CMD org.kde.yakuake /yakuake/sessions org.kde.yakuake.activeSessionId)
